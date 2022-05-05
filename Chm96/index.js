@@ -24,13 +24,17 @@ function parseChm(rawText) {
   for(var d=0;!ended;d++){
     try{
     var i=f+d;var g=rawText[i];var cd=g.charCodeAt(0);
-    if(rawText.slice(i).indexOf('\n���!')==0){
+    if(rawText.slice(i).indexOf('�����������������')==0||rawText.slice(i).indexOf("'/a~�<")==0){
       ended=true;
-      dirs.push(cdr);
+      if(cdr!=""){
+        dirs.push(cdr);
+      }
       break
     } else if(cd==1||cd==0){
       x=false
-      dirs.push(cdr);
+      if(cdr!=""){
+        dirs.push(cdr);
+      }
       cdr="";
     } else if(g=='/'){
       x=true;
