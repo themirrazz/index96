@@ -52,7 +52,7 @@ function splitBytes(bst){
     return bst.split(":");
 }
 
-function fetchChm(ui8){
+async function fetchChm(ui8){
     var arr=ui8toarr(ui8);
     var byteText=joinBytes(arr);
     var headers=arr.slice(0,38); // $38 byte header;
@@ -74,6 +74,7 @@ function fetchChm(ui8){
     var cdr=""
     //alert(arr.slice(8318,8328))//also debugging!
   for(var d=0;!ended;d++){
+      await w96.util.wait(20);
     try{
     var i=start+d;var cd=arr[i];var g=String.fromCharCode(cd);
     if(isEnd(arr.slice(i))){
@@ -169,6 +170,11 @@ function parseChm(rawText) {
 
 var path="C:/CHMData-"+(Math.random()*4992934)
 var ff=await w96.FS.readbin(current.boxedEnv.args[1]);
-var chm=fetchChm(ff);
+var load=w96.ui.MsgBoxSimple.idleProgress(
+    "HtmChm",
+    "Loading CHM..."
+)
+var chm=await fetchChm(ff);
+load.closeDialog()
 alert("CHMData at "+path)
 w96.FS.writestr(path,JSON.stringify(chm));
