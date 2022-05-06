@@ -74,7 +74,7 @@ async function fetchChm(ui8){
     var cdr=""
     //alert(arr.slice(8318,8328))//also debugging!
   for(var d=0;!ended;d++){
-      await w96.util.wait(20);
+      await w96.util.wait(0.01);
     try{
     var i=start+d;var cd=arr[i];var g=String.fromCharCode(cd);
     if(isEnd(arr.slice(i))){
